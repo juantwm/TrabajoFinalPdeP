@@ -58,3 +58,109 @@ export function constructorTarea(
     this.estado = estado;
     this.eliminado = eliminado;
 }
+
+
+
+
+
+constructorTarea.prototype.getId = function() : string {
+    return this.id;
+}
+
+constructorTarea.prototype.getFechaCreacion = function() : Date {
+
+    return this.fechaCreacion;
+}
+
+constructorTarea.prototype.getTitulo = function() : string {
+    return this.titulo;
+}
+
+/*
+Los setter reciben los atributos necesarios y retornan objetos nuevos tarea, con una copia (usando spread ...) de los
+atributos que no son modificados
+*/
+constructorTarea.prototype.setTitulo = function (this: interfazTarea, nuevoTitulo: string, fecha: Date): interfazTarea {
+    const copia = {
+    ...this,
+    titulo: nuevoTitulo,
+    ultimaModificacion: fecha,
+    };
+    /*
+    Copia es un objeto literal creado con spread. Ese objeto pierde los métodos del prototipo de constructorTarea
+    de modo que mediante setPrototypeOf le indico al programa que ese objeto plano obtenga todos los metodos
+    del prototipo, dicho de otras palabras setprototypeod significa: hacer que ese objeto sea un objeto del 
+    prototipo de constructorTarea
+    */
+    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+};
+
+constructorTarea.prototype.getDescripcion = function() : string {
+    return this.descripcion;
+}
+
+// ...this copia todo, menos lo que vas a modificar.
+
+constructorTarea.prototype.setDescripcion = function(this: interfazTarea, nuevaDescripcion : string, fecha: Date) : interfazTarea {
+    const copia = {
+    ...this,
+    descripcion: nuevaDescripcion,
+    ultimaModificacion: fecha,
+    };
+    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+}
+
+constructorTarea.prototype.getEstado = function() : Estado {
+    return this.estado;
+}
+
+constructorTarea.prototype.setEstado = function (
+    this: interfazTarea,
+    nuevoEstado: Estado,
+    fecha: Date
+): interfazTarea {
+    const copia = {
+    ...this,
+    estado: nuevoEstado,
+    ultimaModificacion: fecha,
+    };
+    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+};
+
+constructorTarea.prototype.getDificultad = function() : Dificultad {
+    return this.dificultad;
+}
+
+constructorTarea.prototype.setDificultad = function (
+    this: interfazTarea,
+    nuevaDificultad: Dificultad,
+    fecha: Date
+): interfazTarea {
+    const copia = {
+    ...this,
+    dificultad: nuevaDificultad,
+    ultimaModificacion: fecha,
+    };
+    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+};
+
+constructorTarea.prototype.getVencimiento = function() : Vencimiento {
+    return this.vencimiento;
+}
+
+constructorTarea.prototype.setVencimiento = function (
+    this: interfazTarea,
+    nuevoVencimiento: Vencimiento,
+    fecha: Date
+): interfazTarea {
+    const copia = {
+    ...this,
+    vencimiento: nuevoVencimiento,
+    ultimaModificacion: fecha,
+    };
+    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+};
+
+constructorTarea.prototype.getUltimaModificacion = function() : Date {
+    return this.ultimaModificacion;
+}
