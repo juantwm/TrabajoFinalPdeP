@@ -23,7 +23,26 @@ export function validarVencimiento(vencimiento: string) : boolean {
     else return false;
 }
 
-export function validarDificultad(dificultad: string) : boolean {
-    if (dificultad !== 'facil' && dificultad !== 'media' && dificultad !== 'dificil') return false
-    else return true
+export function validarDificultad(opcion : number) : boolean {
+    if (opcion === 1 || opcion === 2 || opcion === 3)
+    {
+        return true;
+    } 
+    else
+    {
+        return false;
+    } 
+}
+
+
+export function validarEstado(opcion : number) : boolean 
+{   
+    if(opcion === 1 || opcion === 2 || opcion === 3 || opcion ===4)
+    {
+        return true
+    }
+    else
+    {
+        return false;
+    }
 }

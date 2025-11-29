@@ -165,3 +165,14 @@ constructorTarea.prototype.setVencimiento = function (
 constructorTarea.prototype.getUltimaModificacion = function(this: interfazTarea) : Date {
     return this.ultimaModificacion;
 }
+
+constructorTarea.prototype.setEliminado = function ( this: interfazTarea, eliminado: boolean, fecha: Date
+): interfazTarea {
+    const copia = {
+        ...this,
+        eliminado,
+        ultimaModificacion: fecha,
+    };
+    Object.freeze(copia);
+    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+};

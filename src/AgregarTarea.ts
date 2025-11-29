@@ -3,6 +3,7 @@ import type { interfazTarea , Estado , Vencimiento , Dificultad } from "./Tarea.
 import { constructorTarea } from "./Tarea.js";
 import { validarTitulo, validarDescripcion , validarVencimiento, validarDificultad} from "./Validadores.js";
 import promptSync from "prompt-sync";
+import { seleccionarDificultad, seleccionarEstado } from "./SelectEyD.js";
 const prompt = promptSync();
 
 export function agregarTarea(listaTareas : interfazTarea[]) : interfazTarea[] {
@@ -10,7 +11,7 @@ export function agregarTarea(listaTareas : interfazTarea[]) : interfazTarea[] {
     const titulo = agregarTitulo();
     const descripcion = agregarDescripcion();
     const estado: Estado = "❗ Pendiente"; // Estado inicial siempre es "pendiente"
-    const dificultad: Dificultad= agregarDificultad();
+    const dificultad: Dificultad= seleccionarDificultad();
     const vencimiento : Vencimiento= agregarVencimiento();
     const ultimaModificacion = new Date();
     const fechaCreacion = new Date();
@@ -57,7 +58,7 @@ function agregarTitulo (): string {
     }
 }
 
-function agregarDescripcion (): string {
+export function agregarDescripcion (): string {
     let descripcion : string  = prompt("Descripción: ") ?? "";
     /*
     El operador ?? se llama operador de coalescencia nula (nullish coalescing operator).
@@ -79,7 +80,7 @@ function agregarDescripcion (): string {
     return descripcion
 }
 
-function agregarVencimiento (): Vencimiento {
+export function agregarVencimiento (): Vencimiento {
     const base: Vencimiento = "No especificado";
     /*El for (;;) { ... } es una forma compacta de escribir un bucle infinito.
     cuando escribo for (inicializacion;condicion;actualizacion) sin nada, es decir: for(;;)
@@ -103,32 +104,3 @@ for (;;) {
             }
 }
 
-function agregarDificultad () : Dificultad 
-{
-    let opcion : string, valido : number =0;
-    let dificultad : Dificultad = "⭐";
-
-    do
-    {
-        opcion = (prompt("¿Desea agregar una dificultad? (s/n): ") ?? "").toLowerCase();
-        if (opcion !== 's' && opcion !== 'n') console.log("Opción inválida");
-        else if (opcion === 'n') 
-        {
-            return dificultad;
-        }
-        else if (opcion === 's') 
-        {
-            do 
-            {
-                let cadena : string = (prompt("Dificultad (facil/media/dificil): ") ?? "").toLowerCase();
-                if (!validarDificultad(dificultad)) {
-                    console.log("Dificultad inválida. Use facil, media o dificil.");
-                }
-                if (cadena === 'facil')  return '⭐' as Dificultad;
-                if (cadena === 'media')  return '⭐⭐' as Dificultad;
-                if (cadena === 'dificil') return '⭐⭐⭐' as Dificultad;
-                } while (valido===0);
-        }
-                } while (valido===0);
-            return dificultad;
-}
