@@ -46,3 +46,7 @@ export function validarEstado(opcion : number) : boolean
         return false;
     }
 }
+
+export function validarSiNo(opcion: string): boolean {
+    return opcion === "s" || opcion === "n";
+}
