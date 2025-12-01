@@ -17,7 +17,7 @@ export function revisarContenga(nuevaLista:interfazTarea[]):boolean{
 //funcion mostrar tarea 
 export function mostrarTarea(listaTareas:interfazTarea []){
     //revisamos que no este eleminada
-   const listaTareasOrdenadas= ordenarTareasFecha(listaTareas);
+    const listaTareasOrdenadas= ordenarTareasFecha(listaTareas);
     listaTareasOrdenadas.forEach((t)=>{
         if (t.eliminado === true) {
             console.log(t.getId() +"-:" + t.getTitulo());
@@ -26,34 +26,34 @@ export function mostrarTarea(listaTareas:interfazTarea []){
 }
 //funcion mostrar tarea pendientes
 export function mostrarPendientes(listaDeTareas:interfazTarea[]){
-   const nuevaLista= listaDeTareas.filter((t)=> t.getEstado()==='❗ Pendiente' && t.eliminado === true );
-   const resultado = revisarContenga(nuevaLista);
-   if(resultado===false){
-    console.log("no hay elementos en la lista");
-    return;
-   }
-   mostrarTarea(nuevaLista);
+    const nuevaLista= listaDeTareas.filter((t)=> t.getEstado()==='❗ Pendiente' && t.eliminado === true );
+    const resultado = revisarContenga(nuevaLista);
+    if(resultado===false){
+        console.log("no hay elementos en la lista");
+        return;
+    }
+    mostrarTarea(nuevaLista);
 }
 //mostrar tarea en curso
 export function mostrarCurso(listaDeTareas:interfazTarea[]){
-   const nuevaLista= listaDeTareas.filter((t)=>t.getEstado() ==='🛠 En curso'&& t.eliminado === true);
-   const resultado = revisarContenga(nuevaLista);
-   if(resultado===false){
-    console.log("no hay elementos en la lista");
-    return;
-   }
-   mostrarTarea(nuevaLista);
+    const nuevaLista= listaDeTareas.filter((t)=>t.getEstado() ==='🛠 En curso'&& t.eliminado === true);
+    const resultado = revisarContenga(nuevaLista);
+    if(resultado===false){
+        console.log("no hay elementos en la lista");
+        return;
+    }
+    mostrarTarea(nuevaLista);
 }
 
 //funcion mostrar terminadas
 export function mostrarTerminadas(listaDeTareas:interfazTarea[]){
     const nuevaLista= listaDeTareas.filter((t)=> t.getEstado()==='✔ Terminada'&& t.eliminado === true);
-   const resultado = revisarContenga(nuevaLista);
-   if(resultado===false){
-    console.log("no hay elementos en la lista");
-    return;
-   }
-   mostrarTarea(nuevaLista);
+    const resultado = revisarContenga(nuevaLista);
+    if(resultado===false){
+        console.log("no hay elementos en la lista");
+        return;
+    }
+    mostrarTarea(nuevaLista);
 }
 
 
@@ -67,7 +67,7 @@ export function ordenarTareasFecha(listaDeTareas:interfazTarea[]):interfazTarea[
 
 //funcion mostrar a detalles
 export function mostrarDetalles(listaDeTareas:interfazTarea[]){
-   
+
     const tarea = pedirTareaId(listaDeTareas);
 
     if (!tarea) {
@@ -88,6 +88,6 @@ export function mostrarDetalles(listaDeTareas:interfazTarea[]){
 
     if (opcion === 1) {
         console.log("Redirigiendo a edición...");
-        modificarTarea(tarea.getTitulo(),tarea.getId());   // SE EDITA LA MISMA TAREA MOSTRADA
+        modificarTarea(listaDeTareas, tarea.getTitulo(),tarea.getId());   // SE EDITA LA MISMA TAREA MOSTRADA
     }
 }

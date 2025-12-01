@@ -55,8 +55,8 @@ reloj
 -no provoca efectos secundarios, no muta nada
 */
 
-function agregarTitulo (): string {
-    const titulo : string = prompt("Título: ") ?? "";
+export function agregarTitulo (): string {
+    const titulo : string = prompt("Ingresa el Título: ") ?? "";
     if (validarTitulo(titulo)) {
         return titulo;
     }
@@ -68,7 +68,7 @@ function agregarTitulo (): string {
 }
 
 export function agregarDescripcion (): string {
-    let descripcion : string  = prompt("Descripción: ") ?? "";
+    let descripcion : string  = prompt("Ingresa la Descripción: ") ?? "";
     /*
     El operador ?? se llama operador de coalescencia nula (nullish coalescing operator).
     Su función: devolver el primer valor que no sea null ni undefined.

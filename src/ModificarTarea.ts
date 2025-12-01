@@ -1,7 +1,6 @@
-import { listaTareas } from "./index.js";
-import type {interfazTarea, Estado, Dificultad, Vencimiento} from "./Tarea.js";
+import type {interfazTarea} from "./Tarea.js";
 import { seleccionarDificultad, seleccionarEstado } from "./SelectEyD.js";
-import { agregarDescripcion, agregarVencimiento } from "./AgregarTarea.js";
+import { agregarDescripcion, agregarVencimiento, agregarTitulo } from "./AgregarTarea.js";
 
 
 export function modificarTarea(listaTareas : interfazTarea[], tituloTarea: string, idTarea: String) : interfazTarea[]
@@ -64,6 +63,14 @@ export function modificarTarea(listaTareas : interfazTarea[], tituloTarea: strin
                 /*const nuevoEliminado = eliminarTarea();
                     tareaModificada = tareaOriginal.setEliminado (nuevoEliminado, fechaHoy);
                 */
+
+        break;
+
+        case 6:
+
+                const nuevoTitulo = agregarTitulo();
+                tareaModificada = tareaOriginal.setTitulo(nuevoTitulo, fechaHoy);
+                console.log('¡✅ Datos guardados!.');
 
         break;
         
