@@ -31,7 +31,8 @@ export function menuPrincipal(listaTareas:interfazTarea[] = []) {
         console.log("[4] Eliminar una tarea");
         console.log("[5]. Salir");
 
-        const opcion = parseInt(prompt("Elige una opción: "), 10);
+        let opcion = parseInt(prompt("Elige una opción: "), 10);
+
 
         switch (opcion) {
             case 1:
@@ -40,8 +41,12 @@ export function menuPrincipal(listaTareas:interfazTarea[] = []) {
             break;
 
             case 2:
-                
-                menuBuscarTarea(listaTareas); 
+
+                const listaActualizada = menuBuscarTarea(listaTareas);
+                if (listaActualizada) 
+                {
+                        listaTareas = listaActualizada;
+                }
             break;
 
             case 3:
@@ -109,17 +114,3 @@ function menuVerTareas(listaTareas: interfazTarea[]): interfazTarea[] {
         }               
 }
 
-export function menuModificarTarea(tituloTarea: String){
-    
-    console.log('Estas editando la tarea ', tituloTarea);
-    console.log("\n¿Qué desea modificar?");
-    console.log("[1] Descripción");
-    console.log("[2] Estado");
-    console.log("[3] Dificultad");
-    console.log("[4] Vencimiento");
-    console.log("[5] Título");
-    
-
-    const opcion = parseInt(prompt("Elija una opción: "), 10);
-    return opcion;
-}

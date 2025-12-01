@@ -14,7 +14,7 @@ export function seleccionarDificultad () : Dificultad
     
     let opcion = parseInt(prompt("Dificultad [1] Fácil [2] Medio [3] Difícil:"), 10);
 
-    while(validarDificultad(opcion) === false)
+    while(validarDificultad(opcion) === false || Number.isNaN(opcion))
     {
         console.log("¡ERROR! Esa opcion no existe, vuelva a intentarlo. \n");
         let opcion = parseInt(prompt("Dificultad [1] Fácil [2] Medio [3] Difícil:"), 10);
@@ -42,7 +42,7 @@ export function seleccionarEstado() : Estado
 {
     let opcion = parseInt(prompt("Estado ([1] Pendiente / [2] En curso / [3] Terminada / [4] Cancelada):"), 10);
 
-        while(validarEstado(opcion) === false)
+        while(validarEstado(opcion) === false || Number.isNaN(opcion))
         {
             console.log("¡ERROR! Esa opcion no existe, vuelva a intentarlo. \n");
             opcion = parseInt(prompt("Estado ([1] Pendiente / [2] En curso / [3] Terminada / [4] Cancelada):"), 10);

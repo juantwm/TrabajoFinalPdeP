@@ -29,8 +29,8 @@ export function validarVencimiento(vencimiento: string) : boolean {
     Si no coincide (!regex.test(...)), muestra error y repite el bucle.
     Si es correcto, marca valido = 1 y sale.
     */
-    if (!regex.test(vencimiento)) return true
-    else return false;
+    if (!regex.test(vencimiento)) return false
+    else return true;
 }
 
 export function validarDificultad(opcion : number) : boolean {
@@ -80,6 +80,13 @@ export function validarID(listaDeTareas: interfazTarea[], idBuscado: string): in
     return tareaEncontrada;
 }
 
+// Revisamos que no este vacia
+export function revisarContenga(nuevaLista: interfazTarea[]): boolean {
 
+    if(nuevaLista.length>0)
+    {
+        return true;
+    }
 
-
+    return false;
+}

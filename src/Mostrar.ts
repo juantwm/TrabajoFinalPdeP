@@ -1,14 +1,10 @@
 import type { interfazTarea } from "./Tarea.js";
 import { modificarTarea } from "./ModificarTarea.js";
-import { pedirId } from "./Validadores.js";
+import { pedirId, revisarContenga } from "./Validadores.js";
 import promptSync from "prompt-sync";
 
 const prompt = promptSync();
 
-// Revisamos que no este vacia
-export function revisarContenga(nuevaLista: interfazTarea[]): boolean {
-    return nuevaLista.length > 0;
-}
 
 
 /*
@@ -19,7 +15,7 @@ export function revisarContenga(nuevaLista: interfazTarea[]): boolean {
 */
 export function mostrarTareas(listaTareas: interfazTarea[], opcion: number, filtroEspecifico: string) {
 
-    if(listaTareas.length === 0)
+    if(revisarContenga(listaTareas) === false)
     {
         console.log("ERROR. Debe ingresar al menos una tarea. \n");
         return listaTareas;

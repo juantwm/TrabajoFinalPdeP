@@ -1,6 +1,6 @@
 import { mostrarDetalles} from "./Mostrar.js";
 import type { interfazTarea } from "./Tarea.js";
-import {pedirId, validarID} from "./Validadores.js";
+import {pedirId, validarID, revisarContenga} from "./Validadores.js";
 import promptSync from "prompt-sync";
 
 const prompt = promptSync();
@@ -8,7 +8,7 @@ const prompt = promptSync();
 
 export function menuBuscarTarea(listaDeTareas: interfazTarea[]) {
 
-    if(listaDeTareas.length === 0)
+    if(revisarContenga(listaDeTareas) === false)
     {
         console.log("ERROR. Debe ingresar al menos una tarea. \n");
         return;
@@ -20,7 +20,9 @@ export function menuBuscarTarea(listaDeTareas: interfazTarea[]) {
         console.log("2. Buscar por Título");
         console.log("0. Volver");
 
-        const opcion = parseInt(prompt("Elige una opción: "),10);
+        const opcion = parseInt(prompt("Elige una opción: "), 10);
+
+        
 
         switch (opcion) {
             case 1:
@@ -30,10 +32,12 @@ export function menuBuscarTarea(listaDeTareas: interfazTarea[]) {
                 return buscarClave(listaDeTareas);
                 
             case 0:
-                break;
+                return listaDeTareas;
+                
             default:
                 console.log("Opción no válida.");
-            break;
+                return listaDeTareas;
+            
         }
     }
     
@@ -112,7 +116,7 @@ export function buscarClave(listaDeTareas: interfazTarea[]): interfazTarea[] {
         return listaDeTareas;
     }
 
-    
+
 
     console.log("\n✅ Tareas encontradas:");
     console.log("--------------------------------");
