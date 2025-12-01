@@ -1,19 +1,20 @@
-import promptSync from "prompt-sync";
 import type { interfazTarea } from "./Tarea.js";
+import { pedirId, validarID } from "./Validadores.js";
 
-const prompt = promptSync();
+
 
 export function eliminarTarea(listaTareas: interfazTarea[]): interfazTarea[] {
-    const id = pedirId();
+    const idBuscado = pedirId();
     
     // aca se valida si el ID existe y no esta eliminado 
-    const tareaExiste = listaTareas.some(t => t.getId() === id && !t.eliminado);
+    const tareaExiste = validarID(listaTareas, idBuscado);
+
     if (!tareaExiste) {
         console.log("❌ No se encontró una tarea activa con ese ID.");
         return listaTareas; // Retornamos la lista original sin cambios
     }
 
-    const nuevaLista = marcarEliminada(listaTareas, id);
+    const nuevaLista = marcarEliminada(listaTareas, idBuscado);
     console.log("🗑️ Tarea eliminada correctamente.");
     return nuevaLista;
 }
@@ -32,6 +33,3 @@ function marcarEliminada(lista: interfazTarea[], id: string): interfazTarea[] {
     });
 }
 
-function pedirId(): string {
-    return prompt("Ingrese el ID de la tarea a eliminar: ") ?? "";
-}

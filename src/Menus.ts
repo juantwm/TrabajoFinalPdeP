@@ -3,6 +3,7 @@ import { type interfazTarea } from "./Tarea.js";
 import { agregarTarea } from "./AgregarTarea.js";
 import { menuBuscarTarea} from "./BuscarTarea.js";
 import { mostrarTareas} from "./Mostrar.js";
+import { eliminarTarea } from "./EliminarTarea.js";
 
 
 
@@ -25,28 +26,33 @@ export function menuPrincipal() {
         console.log(`Tareas activas: ${activas}`);
 
         console.log("[1] Ver mis Tareas");
-        console.log("[2]. Buscar Tareas");
+        console.log("[2] Buscar Tareas");
         console.log("[3] Agregar Tareas");
-        console.log("[4]. Salir");
+        console.log("[4] Eliminar una tarea");
+        console.log("[5]. Salir");
 
-        const opcion = prompt("Elige una opción: ");
+        const opcion = parseInt(prompt("Elige una opción: "), 10);
 
         switch (opcion) {
-            case "1":
+            case 1:
                 
                 listaTareas = menuVerTareas(listaTareas);
             break;
 
-            case "2":
+            case 2:
                 
                 menuBuscarTarea(listaTareas); 
             break;
 
-            case "3":
+            case 3:
                 listaTareas = agregarTarea(listaTareas);
             break;
 
-            case "4":
+            case 4:
+                listaTareas = eliminarTarea(listaTareas);
+            break;
+
+            case 5:
                 console.log("\n¡Hasta luego!");
                 ejecutando = false;
             break;

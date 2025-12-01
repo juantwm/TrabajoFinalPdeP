@@ -65,7 +65,7 @@ export function validarSiNo(opcion: string): boolean {
 export function pedirId() 
 {
     
-    const id = (prompt("Ingrese el ID:") ?? "").trim();
+    const id = (prompt("Ingrese el valor:") ?? "").trim();
     return id;
 }
 
