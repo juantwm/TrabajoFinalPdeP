@@ -20,16 +20,16 @@ export function menuBuscarTarea(listaDeTareas: interfazTarea[]) {
         console.log("2. Buscar por Título");
         console.log("0. Volver");
 
-        const opcion = prompt("Elige una opción: ");
+        const opcion = parseInt(prompt("Elige una opción: "),10);
 
         switch (opcion) {
-            case "1":
+            case 1:
                 return pedirTareaId(listaDeTareas);
-                break;
-            case "2":
+                
+            case 2:
                 return buscarClave(listaDeTareas);
-                break;
-            case "0":
+                
+            case 0:
                 break;
             default:
                 console.log("Opción no válida.");

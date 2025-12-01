@@ -14,8 +14,6 @@ export let listaTareas: interfazTarea[] = [];
 menuPrincipal();
 
 /*
-//instruccion para agregar tarea a la lista
-listaTareas = agregarTarea(listaTareas);
 
 //instruccion para eliminar tarea de la lista
 listaTareas = eliminarTarea(listaTareas);

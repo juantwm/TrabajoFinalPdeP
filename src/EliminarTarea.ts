@@ -19,8 +19,8 @@ export function eliminarTarea(listaTareas: interfazTarea[]): interfazTarea[] {
 }
 
 /*
- se cumple con la pureza porque recibe una lista y un ID, y retorna una nueva lista
- con la tarea marcada como eliminada, no muta el array original.
+    Se cumple con la pureza porque recibe una lista y un ID, y retorna una nueva lista
+    con la tarea marcada como eliminada, no muta el array original.
  */
 function marcarEliminada(lista: interfazTarea[], id: string): interfazTarea[] {
     return lista.map((tarea) => {

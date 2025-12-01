@@ -4,6 +4,11 @@ import { validarDificultad, validarEstado } from "./Validadores.js";
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 
+
+
+/*
+    Funcion que nos permite seleccionar la dificultad de una tarea
+*/
 export function seleccionarDificultad () : Dificultad 
 {
     
@@ -29,6 +34,9 @@ export function seleccionarDificultad () : Dificultad
     }
 }
 
+/*
+    Funcion que nos permite seleccionar el estado de una tarea
+*/
 
 export function seleccionarEstado() : Estado
 {

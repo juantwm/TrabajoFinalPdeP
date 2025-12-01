@@ -10,6 +10,13 @@ export function revisarContenga(nuevaLista: interfazTarea[]): boolean {
     return nuevaLista.length > 0;
 }
 
+
+/*
+    Funcion que muestra todas las tareas, o muestra segun el filtro ingresado por el usuario (pendiente, en curso, etc)
+    Si el usuario ingresa que quiere ver todas las tareas se muestran de estas, el id y el titulo. Luego se invoca para ver los detalles
+    Si usario ingresa un filtro especifico (pendiente, en curso, etc), se muesta el ID y el titulo de las mismas, y nuevamente se invoca para ver los detalles
+    El return es por si se modifica la tarea, entonces se va guardando el clon modificado hasta llegar al main menu
+*/
 export function mostrarTareas(listaTareas: interfazTarea[], opcion: number, filtroEspecifico: string) {
 
     if(listaTareas.length === 0)
@@ -70,6 +77,10 @@ export function mostrarDetalles(listaDeTareas: interfazTarea[]) {
     
     let idIngresado = pedirId();
 
+    /* 
+        Si el usuario ingresa 0 o nada, vuelve a menu principal, por el contrario busca el ID. Si este es correcto muestra los detalles de la tarea
+    
+    */
     if (idIngresado === "0" || idIngresado === "") {
         return listaDeTareas;
     }
@@ -102,6 +113,9 @@ export function mostrarDetalles(listaDeTareas: interfazTarea[]) {
     console.log("¿Desea editarla? [1] Sí / [0] No");
     const opcion = parseInt(prompt("Opción: "), 10);
 
+    /*
+        Si el usuario ingresa la opcion 1 se llama al metodo para modificar la tarea. El return es para guardar la copia modificada y que no se pierda en el "aire"
+    */
     if (opcion === 1) {
         
         return modificarTarea(listaDeTareas, tareaElegida.getTitulo(), tareaElegida.getId());
