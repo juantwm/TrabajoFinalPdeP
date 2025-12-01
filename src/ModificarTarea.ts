@@ -1,13 +1,15 @@
 import type {interfazTarea} from "./Tarea.js";
 import { seleccionarDificultad, seleccionarEstado } from "./SelectEyD.js";
 import { agregarDescripcion, agregarVencimiento, agregarTitulo } from "./AgregarTarea.js";
+import { menuModificarTarea } from "./Menus.js";
+
 
 
 export function modificarTarea(listaTareas : interfazTarea[], tituloTarea: string, idTarea: String) : interfazTarea[]
 {
-    let opcion: Number = 1;
+    let opcion: Number = 0;
 
-    // opcion = menuModificar(tituloTarea, idTarea)
+    opcion = menuModificarTarea(tituloTarea);
     
     let tareaOriginal = listaTareas.find( t => t.getId() === idTarea);
 
@@ -58,15 +60,8 @@ export function modificarTarea(listaTareas : interfazTarea[], tituloTarea: strin
                 console.log('¡✅ Datos guardados!.');
         break;
 
+
         case 5:
-
-                /*const nuevoEliminado = eliminarTarea();
-                    tareaModificada = tareaOriginal.setEliminado (nuevoEliminado, fechaHoy);
-                */
-
-        break;
-
-        case 6:
 
                 const nuevoTitulo = agregarTitulo();
                 tareaModificada = tareaOriginal.setTitulo(nuevoTitulo, fechaHoy);

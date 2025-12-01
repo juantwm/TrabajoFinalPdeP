@@ -78,12 +78,12 @@ export function agregarDescripcion (): string {
     null solo aparece si la función prompt() del navegador es cancelada (clic en Cancelar). Por eso es necesario
     */
     if (descripcion.length === 0) descripcion = "Sin descripción";
-    else if (!validarDescripcion(descripcion))
+    else if (validarDescripcion(descripcion) === false)
     {
         console.log("La descripción no debe exceder los 200 caracteres.");
         return agregarDescripcion();
     }
-    else if (validarDescripcion(descripcion)) {
+    else if (validarDescripcion(descripcion) === true) {
     return descripcion;
     }
     return descripcion

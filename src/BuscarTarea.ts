@@ -1,72 +1,123 @@
-import { mostrarTarea} from "./Mostrar.js";
+import { mostrarDetalles} from "./Mostrar.js";
 import type { interfazTarea } from "./Tarea.js";
+import {pedirId, validarID} from "./Validadores.js";
 import promptSync from "prompt-sync";
+
 const prompt = promptSync();
 
 
-//------------------------------------------buscar id---------------------------
+export function menuBuscarTarea(listaDeTareas: interfazTarea[]) {
 
-//funcion para pedir el id
-function pedirId(): string {
-    const id = prompt("Ingrese el id de la tarea: ").trim();
-    return id;
+    if(listaDeTareas.length === 0)
+    {
+        console.log("ERROR. Debe ingresar al menos una tarea. \n");
+        return;
+    }
+    else
+    {
+        console.log("\n--- 🔍 Búsqueda de Tareas ---");
+        console.log("1. Buscar por ID");
+        console.log("2. Buscar por Título");
+        console.log("0. Volver");
+
+        const opcion = prompt("Elige una opción: ");
+
+        switch (opcion) {
+            case "1":
+                return pedirTareaId(listaDeTareas);
+                break;
+            case "2":
+                return buscarClave(listaDeTareas);
+                break;
+            case "0":
+                break;
+            default:
+                console.log("Opción no válida.");
+            break;
+        }
+    }
+    
 }
-//funcion que revisa que ese id pertenezca a una tarea
-export function buscarPorId(listaDeTareas: interfazTarea[], id: string): interfazTarea | undefined { 
 
-    const tareaEncontrada = listaDeTareas.find((t) => {
-        return t.getId() === id && t.eliminado === true;
-    });
 
-    return tareaEncontrada;
-}
+
+
+
 //funcion completa donde me retorna una tarea que coincide con el id a buscar
-export function pedirTareaId(listaDeTareas: interfazTarea[]): interfazTarea | undefined {
-    console.log("lista de tareas:");
-    mostrarTarea(listaDeTareas);
+export function pedirTareaId(listaDeTareas: interfazTarea[]){
+    
+    listaDeTareas.forEach((t) => {
+            if (t.eliminado === false) {
+                console.log(`${t.getId()} - ${t.getTitulo()}`);
+            }
+    });
+    
+    let idBuscado = pedirId();
+    
 
-    const id = pedirId();
-    const tarea = buscarPorId(listaDeTareas, id);
+    const tarea = validarID(listaDeTareas, idBuscado);
     if(!tarea){
-        console.log("no se encontraron tareas");
-        return undefined;
+        console.log("¡ERROR! No se encontraron tareas.");
+        return;
 
     }
-    return tarea;
+
+    console.log("\n✅ Tarea encontrada:");
+    console.log(`[${tarea.getId()}] - ${tarea.getTitulo()}`);
+
+    return mostrarDetalles(listaDeTareas);
 }
 
 //---------------------------------- buscar por titulo ----------------------------
 
-//1-pedir titulo impura
-export function pedirTitulo(): string {
-    const clave: string = prompt("ingresa el titulo a buscar: ").trim().toLowerCase();
-    return clave;
-}
-//2-funcion pura que filtra por titulo
-function retornarLista(listaDeTareas: interfazTarea[], clave: string): interfazTarea[] {
+//1-funcion pura que filtra por titulo
+function retornarLista(listaDeTareas: interfazTarea[], clave: string): interfazTarea[] | undefined {
+
+    // 1. Convertimos lo que escribió el usuario a minúsculas
+    const claveNormalizada = clave.toLowerCase();
 
     const filtradas = listaDeTareas.filter((t) => {
+        // 2. Convertimos el título de la tarea actual a minúsculas
+        const tituloNormalizado = t.getTitulo().toLowerCase();
 
-        const tituloEnMinusculas = t.getTitulo().toLowerCase();
-
-        if (tituloEnMinusculas.includes(clave) && t.eliminado === true) {
+        // 3. Verificamos coincidencia Y que no esté eliminada
+        // Usamos .includes() para que si busco "pan", encuentre "Comprar pan"
+        if (tituloNormalizado.includes(claveNormalizada) && t.eliminado === false) {
             return true;
         }
         return false;
-
     });
+
     return filtradas;
 }
 
-//3 funcion impura aca juntamos las otras 2 funciones 
-export function buscarClave(listaDeTareas: interfazTarea[]): interfazTarea[]|undefined {
+//2- funcion impura para pedir titulo
+export function buscarClave(listaDeTareas: interfazTarea[]): interfazTarea[] {
 
-    const clavePedir = pedirTitulo();
-    const tareas = retornarLista(listaDeTareas, clavePedir);
-    if(!tareas){
-        console.log("no se encontraron tareas");
-        return undefined;
+    let tituloBuscado = prompt("Introduce el titulo de una Tarea para buscarla:");
 
+    listaDeTareas.forEach((t) => {
+            if (t.eliminado === false) {
+                console.log(`${t.getId()} - ${t.getTitulo()}`);
+            }
+    });
+    
+    const tarea = retornarLista(listaDeTareas, tituloBuscado);
+    if(!tarea){
+        console.log("¡ERROR! No se encontraron tareas. Vuelva a intentarlo");
+        return listaDeTareas;
     }
-    return tareas;
+
+    console.log("\n✅ Tareas encontradas:");
+    console.log("--------------------------------");
+    tarea.forEach((t) => {
+        
+        console.log(`[${t.getId()}] - ${t.getTitulo()} (${t.getEstado()})`);
+    });
+    console.log("--------------------------------");
+
+    
+    return mostrarDetalles(listaDeTareas);
+
 }
+

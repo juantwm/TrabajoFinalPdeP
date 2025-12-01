@@ -1,93 +1,110 @@
-import { pedirTareaId } from "./BuscarTarea.js";
 import type { interfazTarea } from "./Tarea.js";
 import { modificarTarea } from "./ModificarTarea.js";
-
+import { pedirId } from "./Validadores.js";
 import promptSync from "prompt-sync";
+
 const prompt = promptSync();
 
-//revisamos que no este vacia
-export function revisarContenga(nuevaLista:interfazTarea[]):boolean{
-    if(nuevaLista.length===0){
-        return false
-    }
-    return true;
-
+// Revisamos que no este vacia
+export function revisarContenga(nuevaLista: interfazTarea[]): boolean {
+    return nuevaLista.length > 0;
 }
 
-//funcion mostrar tarea 
-export function mostrarTarea(listaTareas:interfazTarea []){
-    //revisamos que no este eleminada
-    const listaTareasOrdenadas= ordenarTareasFecha(listaTareas);
-    listaTareasOrdenadas.forEach((t)=>{
-        if (t.eliminado === true) {
-            console.log(t.getId() +"-:" + t.getTitulo());
+export function mostrarTareas(listaTareas: interfazTarea[], opcion: number, filtroEspecifico: string) {
+
+    if(listaTareas.length === 0)
+    {
+        console.log("ERROR. Debe ingresar al menos una tarea. \n");
+        return listaTareas;
+    }
+    else
+    {
+        let listaTareasOrdenadas: interfazTarea[];
+
+        if (opcion === 1) 
+        {
+            listaTareasOrdenadas = ordenarTareasFecha(listaTareas);
+            listaTareasOrdenadas.forEach((t) => {
+                if (t.eliminado === false) 
+                {
+                    console.log(`${t.getId()} - ${t.getTitulo()}`);
+                }
+            });
+
+            
+        } 
+        else 
+        {
+            listaTareasOrdenadas = ordenarTareasFecha(listaTareas);
+            listaTareasOrdenadas.forEach((t) => {
+                if (t.getEstado() === filtroEspecifico && t.eliminado === false) 
+                {
+                    console.log(`${t.getId()} - ${t.getTitulo()}`);
+                }
+            });
+            
+            
         }
-    });
-}
-//funcion mostrar tarea pendientes
-export function mostrarPendientes(listaDeTareas:interfazTarea[]){
-    const nuevaLista= listaDeTareas.filter((t)=> t.getEstado()==='❗ Pendiente' && t.eliminado === true );
-    const resultado = revisarContenga(nuevaLista);
-    if(resultado===false){
-        console.log("no hay elementos en la lista");
-        return;
+
     }
-    mostrarTarea(nuevaLista);
-}
-//mostrar tarea en curso
-export function mostrarCurso(listaDeTareas:interfazTarea[]){
-    const nuevaLista= listaDeTareas.filter((t)=>t.getEstado() ==='🛠 En curso'&& t.eliminado === true);
-    const resultado = revisarContenga(nuevaLista);
-    if(resultado===false){
-        console.log("no hay elementos en la lista");
-        return;
-    }
-    mostrarTarea(nuevaLista);
+    return mostrarDetalles(listaTareas);
+
+    
 }
 
-//funcion mostrar terminadas
-export function mostrarTerminadas(listaDeTareas:interfazTarea[]){
-    const nuevaLista= listaDeTareas.filter((t)=> t.getEstado()==='✔ Terminada'&& t.eliminado === true);
-    const resultado = revisarContenga(nuevaLista);
-    if(resultado===false){
-        console.log("no hay elementos en la lista");
-        return;
-    }
-    mostrarTarea(nuevaLista);
+// Ordenamos por fecha de creacion
+export function ordenarTareasFecha(listaDeTareas: interfazTarea[]): interfazTarea[] {
+    const copia = [...listaDeTareas];
+    return copia.sort((a, b) => a.getFechaCreacion().getTime() - b.getFechaCreacion().getTime());
 }
 
+// Funcion mostrar detalles
+export function mostrarDetalles(listaDeTareas: interfazTarea[]) {
+    console.log(`
+    -------------------------------------------
+    ¿Deseas ver los detalles de alguna tarea?
+    Introduce el ID para verla o 0 para volver.
+    -------------------------------------------
+    `);
 
-//ordenamos por fecha de creacion
-export function ordenarTareasFecha(listaDeTareas:interfazTarea[]):interfazTarea[]{
-    //creamos copia asi despues usamos sort y no mutamos el original
-    const copia=[...listaDeTareas];
-    return copia.sort((a,b)=>a.getFechaCreacion().getTime() - b.getFechaCreacion().getTime())
+    
+    let idIngresado = pedirId();
 
-}
-
-//funcion mostrar a detalles
-export function mostrarDetalles(listaDeTareas:interfazTarea[]){
-
-    const tarea = pedirTareaId(listaDeTareas);
-
-    if (!tarea) {
-        console.log("No existe esa tarea.");
-        return;
+    if (idIngresado === "0" || idIngresado === "") {
+        return listaDeTareas;
     }
 
-    console.log("---------------");
-    console.log("Nombre: " + tarea.getTitulo());
-    console.log("Estado: " + tarea.getEstado());
-    console.log("Fecha creación: " + tarea.getFechaCreacion());
-    console.log("Última edición: " + tarea.getUltimaModificacion());
-    console.log("Vencimiento: " + tarea.getVencimiento());
-    console.log("Dificultad: " + tarea.getDificultad());
-    console.log("---------------");
+    // Buscamos la tarea
+    let tareaElegida = listaDeTareas.find(t => t.getId() === idIngresado);
 
-    const opcion = Number(prompt("¿Desea editarla? (1-Sí, 2-No): "));
+    
+    while (!tareaElegida) {
+        console.log("❌ Ese ID no existe. Vuelva a intentarlo o ingrese 0 para volver.");
+        idIngresado = pedirId();
+        
+        if (idIngresado === "0" || idIngresado === "") {
+            return listaDeTareas;
+        }
+        tareaElegida = listaDeTareas.find(t => t.getId() === idIngresado);
+    }
+
+    
+    console.log("\n--- DETALLES ---");
+    console.log("Nombre: " + tareaElegida.getTitulo());
+    console.log("Descripcion: " + tareaElegida.getDescripcion());
+    console.log("Estado: " + tareaElegida.getEstado());
+    console.log("Fecha creación: " + tareaElegida.getFechaCreacion().toLocaleDateString());
+    console.log("Última edición: " + tareaElegida.getUltimaModificacion().toLocaleDateString());
+    console.log("Vencimiento: " + tareaElegida.getVencimiento());
+    console.log("Dificultad: " + tareaElegida.getDificultad());
+    console.log("----------------\n");
+
+    console.log("¿Desea editarla? [1] Sí / [0] No");
+    const opcion = parseInt(prompt("Opción: "), 10);
 
     if (opcion === 1) {
-        console.log("Redirigiendo a edición...");
-        modificarTarea(listaDeTareas, tarea.getTitulo(),tarea.getId());   // SE EDITA LA MISMA TAREA MOSTRADA
+        
+        return modificarTarea(listaDeTareas, tareaElegida.getTitulo(), tareaElegida.getId());
     }
+    return listaDeTareas;
 }

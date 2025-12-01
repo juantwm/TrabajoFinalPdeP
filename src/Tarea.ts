@@ -29,6 +29,8 @@ export interface interfazTarea {
     setEstado(nuevoEstado: Estado, fecha: Date): interfazTarea;
 
     getUltimaModificacion(): Date;
+    
+    setEliminado(eliminado: boolean, fecha: Date): interfazTarea;
 }
 
 export type Dificultad = '⭐' | '⭐⭐' | '⭐⭐⭐';
@@ -88,8 +90,10 @@ constructorTarea.prototype.setTitulo = function (this: interfazTarea, nuevoTitul
     del prototipo, dicho de otras palabras setprototypeod significa: hacer que ese objeto sea un objeto del 
     prototipo de constructorTarea
     */
+    Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);
-    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+
+    return copia;
 };
 
 constructorTarea.prototype.getDescripcion = function(this: interfazTarea) : string {
@@ -104,8 +108,10 @@ constructorTarea.prototype.setDescripcion = function(this: interfazTarea, nuevaD
     descripcion: nuevaDescripcion,
     ultimaModificacion: fecha,
     };
+    Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);
-    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+
+    return copia;
 }
 
 constructorTarea.prototype.getEstado = function(this: interfazTarea) : Estado {
@@ -122,8 +128,10 @@ constructorTarea.prototype.setEstado = function (
     estado: nuevoEstado,
     ultimaModificacion: fecha,
     };
+    Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);
-    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+
+    return copia;
 };
 
 constructorTarea.prototype.getDificultad = function(this: interfazTarea) : Dificultad {
@@ -140,8 +148,10 @@ constructorTarea.prototype.setDificultad = function (
     dificultad: nuevaDificultad,
     ultimaModificacion: fecha,
     };
+    Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);
-    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+
+    return copia;
 };
 
 constructorTarea.prototype.getVencimiento = function(this: interfazTarea) : Vencimiento {
@@ -158,8 +168,10 @@ constructorTarea.prototype.setVencimiento = function (
     vencimiento: nuevoVencimiento,
     ultimaModificacion: fecha,
     };
+    Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);
-    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+
+    return copia;
 };
 
 constructorTarea.prototype.getUltimaModificacion = function(this: interfazTarea) : Date {
@@ -173,6 +185,8 @@ constructorTarea.prototype.setEliminado = function ( this: interfazTarea, elimin
         eliminado,
         ultimaModificacion: fecha,
     };
+    Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);
-    return Object.setPrototypeOf(copia, constructorTarea.prototype);
+
+    return copia;
 };

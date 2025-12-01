@@ -1,11 +1,21 @@
+import type { interfazTarea } from "./Tarea.js";
+import promptSync from "prompt-sync";
+const prompt = promptSync();
+
 export function validarTitulo(titulo : string) : boolean {
     if (titulo.length < 100 && titulo.length > 0) return true
     else return false;
 }
 
 export function validarDescripcion(descripcion : string) : boolean {
-    if (descripcion.length > 200) return true
-    else return false;
+    if (descripcion.length <= 200) 
+    {
+        return true
+    }
+    else
+    {
+        return false;
+    } 
 }
 
 export function validarVencimiento(vencimiento: string) : boolean {
@@ -50,3 +60,23 @@ export function validarEstado(opcion : number) : boolean
 export function validarSiNo(opcion: string): boolean {
     return opcion === "s" || opcion === "n";
 }
+
+
+export function pedirId() 
+{
+    
+    const id = (prompt("Ingrese el ID:") ?? "").trim();
+    return id;
+}
+
+
+export function validarID(listaDeTareas: interfazTarea[], idBuscado: string): interfazTarea | undefined 
+{ 
+
+    const tareaEncontrada = listaDeTareas.find((t) => {
+        return t.getId() === idBuscado && t.eliminado === false;
+    });
+
+    return tareaEncontrada;
+}
+
