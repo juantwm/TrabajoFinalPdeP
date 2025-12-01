@@ -2,7 +2,7 @@ import promptSync from "prompt-sync";
 import { type interfazTarea } from "./Tarea.js";
 import { agregarTarea } from "./AgregarTarea.js";
 import { menuBuscarTarea} from "./BuscarTarea.js";
-import { mostrarTareas} from "./Mostrar.js";
+import { mostrarTareas, mostrarTareasVencidas} from "./Mostrar.js";
 import { eliminarTarea } from "./EliminarTarea.js";
 
 
@@ -81,6 +81,7 @@ function menuVerTareas(listaTareas: interfazTarea[]): interfazTarea[] {
         console.log("[2] Ver tareas pendientes");
         console.log("[3] Ver tareas en curso");
         console.log("[4] Ver tareas terminadas");
+        console.log("[5] Ver tareas vencidas.");
         console.log("[0] Volver"); // Agregamos opción volver
 
         const subOpcion = parseInt(prompt("Elige una opción: "), 10);
@@ -104,13 +105,16 @@ function menuVerTareas(listaTareas: interfazTarea[]): interfazTarea[] {
             case 4:
                 filtroEspecifico = '✔ Terminada';
                 return mostrarTareas(listaTareas, op, filtroEspecifico);
-            
+
+            case 5:
+                mostrarTareasVencidas(listaTareas);
+
             case 0:
                 return listaTareas; 
 
             default:
                 console.log("\n❌ Opción no válida, intenta de nuevo.");
                 return listaTareas; 
-        }               
+        }
 }
 

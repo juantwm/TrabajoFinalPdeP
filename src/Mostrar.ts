@@ -1,6 +1,6 @@
 import type { interfazTarea } from "./Tarea.js";
 import { modificarTarea } from "./ModificarTarea.js";
-import { pedirId, revisarContenga } from "./Validadores.js";
+import { pedirId, revisarContenga, tareasVencidas } from "./Validadores.js";
 import promptSync from "prompt-sync";
 
 const prompt = promptSync();
@@ -115,4 +115,19 @@ export function mostrarDetalles(listaDeTareas: interfazTarea[]) {
         return modificarTarea(listaDeTareas, tareaElegida.getTitulo(), tareaElegida.getId());
     }
     return listaDeTareas;
+}
+
+
+export function mostrarTareasVencidas(listaTareas: interfazTarea[]): void {
+    const hoy = new Date();
+
+    const vencidas = tareasVencidas(listaTareas, hoy);
+
+    vencidas.forEach((tarea, indice) => {
+        console.log(`#${indice + 1}`);
+        console.log(`Título: ${tarea.getTitulo()}`);
+        console.log(`Estado: ${tarea.getEstado()}`);
+        console.log(`Vencimiento: ${tarea.getVencimiento()}`);
+        console.log("--------------------");
+    });
 }

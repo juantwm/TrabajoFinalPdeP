@@ -1,0 +1,45 @@
+import { validarDificultad, validarEstado } from "./Validadores.js";
+import promptSync from "prompt-sync";
+const prompt = promptSync();
+/*
+    Funcion que nos permite seleccionar la dificultad de una tarea
+*/
+export function seleccionarDificultad() {
+    let opcion = parseInt(prompt("Dificultad [1] Fácil [2] Medio [3] Difícil:"), 10);
+    while (validarDificultad(opcion) === false || Number.isNaN(opcion)) {
+        console.log("¡ERROR! Esa opcion no existe, vuelva a intentarlo. \n");
+        let opcion = parseInt(prompt("Dificultad [1] Fácil [2] Medio [3] Difícil:"), 10);
+    }
+    switch (opcion) {
+        case 1:
+            return '⭐';
+        case 2:
+            return '⭐⭐';
+        case 3:
+            return '⭐⭐⭐';
+        default:
+            return '⭐';
+    }
+}
+/*
+    Funcion que nos permite seleccionar el estado de una tarea
+*/
+export function seleccionarEstado() {
+    let opcion = parseInt(prompt("Estado ([1] Pendiente / [2] En curso / [3] Terminada / [4] Cancelada):"), 10);
+    while (validarEstado(opcion) === false || Number.isNaN(opcion)) {
+        console.log("¡ERROR! Esa opcion no existe, vuelva a intentarlo. \n");
+        opcion = parseInt(prompt("Estado ([1] Pendiente / [2] En curso / [3] Terminada / [4] Cancelada):"), 10);
+    }
+    switch (opcion) {
+        case 1:
+            return '❗ Pendiente';
+        case 2:
+            return '🛠 En curso';
+        case 3:
+            return '✔ Terminada';
+        case 4:
+            return "❌ Cancelada";
+        default: return '❗ Pendiente';
+    }
+}
+//# sourceMappingURL=SelectEyD.js.map

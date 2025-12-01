@@ -1,4 +1,5 @@
-import type { interfazTarea } from "./Tarea.js";
+import type { interfazTarea, Vencimiento } from "./Tarea.js";
+
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 
@@ -89,4 +90,30 @@ export function revisarContenga(nuevaLista: interfazTarea[]): boolean {
     }
 
     return false;
+}
+
+
+
+export function tareasVencidas(listaTareas : interfazTarea[], hoy : Date) : interfazTarea[] {
+    const vencidas = listaTareas.filter(tarea => {
+        const v = tarea.getVencimiento();
+        const fechaVenc = parsearFecha(v);
+
+        if (fechaVenc === null) return false;   // sin fecha → no se considera vencida
+
+        // tarea vencida si su fecha es anterior a hoy
+        return fechaVenc < hoy;
+    })
+    return vencidas;
+}
+
+function parsearFecha(v: Vencimiento): Date | null {
+    if (v === "No especificado") return null;
+
+    const [diaStr, mesStr, anioStr] = v.split("/");
+    const dia = Number(diaStr);
+    const mes = Number(mesStr) - 1; // en Date: 0 = enero, 11 = diciembre
+    const anio = Number(anioStr);
+
+    return new Date(anio, mes, dia);
 }
