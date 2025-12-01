@@ -55,8 +55,6 @@ export function mostrarTareas(listaTareas: interfazTarea[], opcion: number, filt
 
     }
     return mostrarDetalles(listaTareas);
-
-    
 }
 
 // Ordenamos por fecha de creacion

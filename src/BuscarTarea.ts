@@ -62,6 +62,8 @@ export function pedirTareaId(listaDeTareas: interfazTarea[]){
 
     }
 
+
+
     console.log("\n✅ Tarea encontrada:");
     console.log(`[${tarea.getId()}] - ${tarea.getTitulo()}`);
 
@@ -71,7 +73,7 @@ export function pedirTareaId(listaDeTareas: interfazTarea[]){
 //---------------------------------- buscar por titulo ----------------------------
 
 //1-funcion pura que filtra por titulo
-function retornarLista(listaDeTareas: interfazTarea[], clave: string): interfazTarea[] | undefined {
+function retornarLista(listaDeTareas: interfazTarea[], clave: string): interfazTarea[] {
 
     // 1. Convertimos lo que escribió el usuario a minúsculas
     const claveNormalizada = clave.toLowerCase();
@@ -103,10 +105,14 @@ export function buscarClave(listaDeTareas: interfazTarea[]): interfazTarea[] {
     });
     
     const tarea = retornarLista(listaDeTareas, tituloBuscado);
-    if(!tarea){
+
+    
+    if(tarea.length === 0){
         console.log("¡ERROR! No se encontraron tareas. Vuelva a intentarlo");
         return listaDeTareas;
     }
+
+    
 
     console.log("\n✅ Tareas encontradas:");
     console.log("--------------------------------");

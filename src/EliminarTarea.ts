@@ -17,6 +17,7 @@ export function eliminarTarea(listaTareas: interfazTarea[]): interfazTarea[] {
     const nuevaLista = marcarEliminada(listaTareas, idBuscado);
     console.log("🗑️ Tarea eliminada correctamente.");
     return nuevaLista;
+    
 }
 
 /*
@@ -27,9 +28,9 @@ function marcarEliminada(lista: interfazTarea[], id: string): interfazTarea[] {
     return lista.map((tarea) => {
         if (tarea.getId() === id) {
             // se crea la copia eliminada usando el método del prototipo
-            return tarea.setEliminado(true, new Date());
+            return tarea.setEliminado(true);
         }
         return tarea;
-    });
+    }); 
 }
 

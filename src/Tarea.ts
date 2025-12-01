@@ -30,7 +30,7 @@ export interface interfazTarea {
 
     getUltimaModificacion(): Date;
     
-    setEliminado(eliminado: boolean, fecha: Date): interfazTarea;
+    setEliminado(eliminado: boolean): interfazTarea;
 }
 
 export type Dificultad = '⭐' | '⭐⭐' | '⭐⭐⭐';
@@ -90,6 +90,7 @@ constructorTarea.prototype.setTitulo = function (this: interfazTarea, nuevoTitul
     del prototipo, dicho de otras palabras setprototypeod significa: hacer que ese objeto sea un objeto del 
     prototipo de constructorTarea
     */
+    
     Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);
 
@@ -178,12 +179,12 @@ constructorTarea.prototype.getUltimaModificacion = function(this: interfazTarea)
     return this.ultimaModificacion;
 }
 
-constructorTarea.prototype.setEliminado = function ( this: interfazTarea, eliminado: boolean, fecha: Date
+constructorTarea.prototype.setEliminado = function ( this: interfazTarea, eliminado: boolean
 ): interfazTarea {
     const copia = {
         ...this,
         eliminado,
-        ultimaModificacion: fecha,
+        
     };
     Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);

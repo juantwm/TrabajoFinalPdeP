@@ -7,11 +7,11 @@ import { eliminarTarea } from "./EliminarTarea.js";
 
 
 
+
 const prompt = promptSync();
 
-export function menuPrincipal() {
+export function menuPrincipal(listaTareas:interfazTarea[] = []) {
 
-    let listaTareas: interfazTarea[] = [];
     let ejecutando = true;
 
     console.clear();
