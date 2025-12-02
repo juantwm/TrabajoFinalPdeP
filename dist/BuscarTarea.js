@@ -38,7 +38,7 @@ export async function pedirTareaId(listaDeTareas) {
     if (!tarea) {
         console.log("¡ERROR! No se encontraron tareas.");
         //posible error al retornar una lista vacia y no la lista sin cambios
-        return [];
+        return listaDeTareas;
     }
     console.log("\n✅ Tarea encontrada:");
     console.log(`[${tarea.getId()}] - ${tarea.getTitulo()}`);

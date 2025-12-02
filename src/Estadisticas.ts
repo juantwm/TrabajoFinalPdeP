@@ -6,9 +6,7 @@ type ReporteItem = {
     porcentaje: string;
 };
 
-// =================================================================
-// 🧪 FUNCIONES PURAS
-// =================================================================
+
 
 const contarActivas = (lista: interfazTarea[]): number => 
     lista.filter(t => !t.eliminado).length;
@@ -43,9 +41,7 @@ function generarReporte<T>(
     });
 }
 
-// =================================================================
-// 👁️ FUNCIÓN IMPURA (Mostrar)
-// =================================================================
+
 
 export function mostrarEstadisticas(listaTareas: interfazTarea[]) {
     console.clear();

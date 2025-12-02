@@ -64,7 +64,7 @@ export async function pedirTareaId(listaDeTareas: interfazTarea[]): Promise <int
         console.log("¡ERROR! No se encontraron tareas.");
 
         //posible error al retornar una lista vacia y no la lista sin cambios
-        return [];
+        return listaDeTareas;
 
     }
 
