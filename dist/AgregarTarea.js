@@ -3,8 +3,9 @@ import { constructorTarea } from "./Tarea.js";
 import { validarTitulo, validarDescripcion, validarVencimiento, validarSiNo } from "./Validadores.js";
 import promptSync from "prompt-sync";
 import { seleccionarDificultad, seleccionarEstado } from "./SelectEyD.js";
+import { guardarTareasEnArchivo } from "./archivo.js";
 const prompt = promptSync();
-export function agregarTarea(listaTareas) {
+export async function agregarTarea(listaTareas) {
     const id = uuidv4();
     const titulo = agregarTitulo();
     const descripcion = agregarDescripcion();
@@ -14,16 +15,21 @@ export function agregarTarea(listaTareas) {
     const ultimaModificacion = new Date();
     const fechaCreacion = new Date();
     const tarea = crearTarea(id, titulo, estado, descripcion, dificultad, vencimiento, fechaCreacion, ultimaModificacion);
-    return insertarTarea(listaTareas, tarea);
+    // Crea una lista con las tareas que creamos en tiempo de ejecucion, una a la vez. Esta lista se guarda en el archivo JSON y retorna esta lista-
+    const nuevaLista = insertarTarea(listaTareas, tarea);
+    await guardarTareasEnArchivo(nuevaLista);
+    return nuevaLista;
 }
 function insertarTarea(lista, tarea) {
     /*Aca lo que hago es recibir por parametro la lista de tareas y la tarea a insertar y devuevlo una nueva
     lista que copia con "..." todos los objetos de la lista anterior y le agrega el nuevo objeto a agregar*/
     return [...lista, tarea];
 }
-/*Crear tarea debe si o si recibir por parametro los datos para retornar el objeto tarea, porque si
+/*
+Crear tarea debe si o si recibir por parametro los datos para retornar el objeto tarea, porque si
 llama desde alla las funciones impuras que retornan datos, entonces por conmposicion se vuelve una funcion
-impura*/
+impura
+*/
 function crearTarea(id, titulo, estado, descripcion, dificultad, vencimiento, fechaCreacion, ultimaModificacion) {
     const tarea = new constructorTarea(id, titulo, descripcion, dificultad, vencimiento, fechaCreacion, ultimaModificacion, estado, false);
     Object.freeze(tarea);

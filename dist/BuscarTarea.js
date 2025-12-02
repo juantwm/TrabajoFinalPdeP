@@ -2,7 +2,7 @@ import { mostrarDetalles } from "./Mostrar.js";
 import { pedirId, validarID, revisarContenga } from "./Validadores.js";
 import promptSync from "prompt-sync";
 const prompt = promptSync();
-export function menuBuscarTarea(listaDeTareas) {
+export async function menuBuscarTarea(listaDeTareas) {
     if (revisarContenga(listaDeTareas) === false) {
         console.log("ERROR. Debe ingresar al menos una tarea. \n");
         return;
@@ -15,9 +15,9 @@ export function menuBuscarTarea(listaDeTareas) {
         const opcion = parseInt(prompt("Elige una opción: "), 10);
         switch (opcion) {
             case 1:
-                return pedirTareaId(listaDeTareas);
+                return await pedirTareaId(listaDeTareas);
             case 2:
-                return buscarClave(listaDeTareas);
+                return await buscarClave(listaDeTareas);
             case 0:
                 return listaDeTareas;
             default:
@@ -27,7 +27,7 @@ export function menuBuscarTarea(listaDeTareas) {
     }
 }
 //funcion completa donde me retorna una tarea que coincide con el id a buscar
-export function pedirTareaId(listaDeTareas) {
+export async function pedirTareaId(listaDeTareas) {
     listaDeTareas.forEach((t) => {
         if (t.eliminado === false) {
             console.log(`${t.getId()} - ${t.getTitulo()}`);
@@ -37,7 +37,8 @@ export function pedirTareaId(listaDeTareas) {
     const tarea = validarID(listaDeTareas, idBuscado);
     if (!tarea) {
         console.log("¡ERROR! No se encontraron tareas.");
-        return;
+        //posible error al retornar una lista vacia y no la lista sin cambios
+        return [];
     }
     console.log("\n✅ Tarea encontrada:");
     console.log(`[${tarea.getId()}] - ${tarea.getTitulo()}`);
@@ -61,7 +62,7 @@ function retornarLista(listaDeTareas, clave) {
     return filtradas;
 }
 //2- funcion impura para pedir titulo
-export function buscarClave(listaDeTareas) {
+export async function buscarClave(listaDeTareas) {
     let tituloBuscado = prompt("Introduce el titulo de una Tarea para buscarla:");
     listaDeTareas.forEach((t) => {
         if (t.eliminado === false) {

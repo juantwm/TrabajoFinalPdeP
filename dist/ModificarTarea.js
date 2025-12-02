@@ -1,8 +1,9 @@
 import { seleccionarDificultad, seleccionarEstado } from "./SelectEyD.js";
 import { agregarDescripcion, agregarVencimiento, agregarTitulo } from "./AgregarTarea.js";
 import promptSync from "prompt-sync";
+import { guardarTareasEnArchivo } from "./archivo.js";
 const prompt = promptSync();
-export function modificarTarea(listaTareas, tituloTarea, idTarea) {
+export async function modificarTarea(listaTareas, tituloTarea, idTarea) {
     let opcion;
     do {
         console.log('Estas editando la tarea ', tituloTarea);
@@ -65,7 +66,10 @@ export function modificarTarea(listaTareas, tituloTarea, idTarea) {
             // se llama a 'reemplazarEnLista'. 
             // Le pasamos la lista vieja y la tarea nueva (modificada).
             // Esta funcion devuelve una lista NUEVA con el cambio agregado.
-            return reemplazarEnLista(listaTareas, tareaModificada);
+            // Se crea una lista para guardar los cambios y pasarlos al archivo JSON
+            const nuevaLista = reemplazarEnLista(listaTareas, tareaModificada);
+            await guardarTareasEnArchivo(nuevaLista);
+            return nuevaLista;
         }
     } while (opcion !== 0);
     return listaTareas;

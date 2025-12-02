@@ -2,63 +2,46 @@ import { promises as fs } from "fs";
 import { constructorTarea, type interfazTarea } from "./Tarea.js";
 import { validarTitulo, validarDescripcion, validarEstado, validarDificultad } from "./Validadores.js";
 
-/*
-    - Cuando la app arranca, tenemos que leer un archivo real del disco (“archivo.json”).
-    - Ese archivo trae información cruda (texto)
-    - Tenemos que convertir ese texto a objetos de JS
-    - Luego, como JSON NO guarda prototipos ni métodos, debemos reconstruir cada tarea
-    usando nuestro constructorTarea (para que vuelvan a tener getters, setters y freeze)
-    - Además, chequeamos que los datos del archivo sean válidos (por si el archivo se corrompió,
-    o se editó a mano)
-    - Solo dejamos pasar tareas válidas
-    - Finalmente, devolvemos esa lista al menú principal
 
-*/
-
+//devuelve una promesa que cuando termina devuelve un array de intefaz tarea
 export async function leerTareasDesdeArchivo(): Promise<interfazTarea[]> {
     try {
-        /*
-            1) Leemos el archivo real del disco
-            - Si existe, fs.readFile lo carga como texto
-            - Si no existe, se va al catch
-        */
-        const texto = await fs.readFile("archivo.json", "utf8");
 
-        /*
-            2) Convertimos ese texto a objetos JS
-            JSON.parse transforma un string JSON en arreglos/objetos planos
-        */
+        const RUTA_ARCHIVO = "./src/archivo.json";
+        
+        //va al disco buscar el archivo.json y lo trae pero como se demora en hacerlo hace usamos una promesa
+        const texto = await fs.readFile(RUTA_ARCHIVO, "utf8");
+
+       //convertimos el archivo leido en un objeto
         const tareasCrudas = JSON.parse(texto);
 
-           // 3) Creamos un array donde vamos a ir metiendo SOLO las tareas válidas
+           // 3) Creamos un array donde vamos a ir metiendo solo las tareas válidas,esto lo hacemos porque pueden ir tarea corruptas
         
-        const tareasValidas: interfazTarea[] = [];
+        let tareasValidas: interfazTarea[] = [];
 
 
            // 4) Recorremos todas las tareas crudas para validarlas y reconstruirlas una por una.
     
         for (const t of tareasCrudas) {
 
+        
             if (
                 validarTitulo(t.titulo) &&
-                validarDescripcion(t.descripcion) &&
-                validarEstado(t.estado) &&
-                validarDificultad(t.dificultad)
+                validarDescripcion(t.descripcion) 
             ) {
-                /*
-                    5) RECONSTRUCCIÓN DE LA TAREA
+            
+                /*RECONSTRUCCIÓN DE LA TAREA
 
                     Los objetos del JSON llegan sin nada, sin métodos y sin prototipo.
                     Necesitamos volver a convertirlos en un objeto Tarea REAL como
                     los que usa el resto del sistema
 
                     Para eso utilizamos:
-                    new constructorTarea(...)
+                    new constructorTarea(...)*/
 
-                */
 
-                const tarea = new (constructorTarea as any)(
-                    t.id,
+                const tarea = new (constructorTarea as any)(//cuando llamo al contructor ya le paso los prototipos en este los pasa 
+                    t.id,//haciendo eso leemos el archivo tal cual del Json
                     t.titulo,
                     t.descripcion,
                     t.dificultad,
@@ -68,11 +51,12 @@ export async function leerTareasDesdeArchivo(): Promise<interfazTarea[]> {
                     t.estado,
                     t.eliminado
                 );
-
+//freeze solo bloquea los atributos
                 Object.freeze(tarea);
 
-                // Agregamos esta tarea reconstruida a la lista válida
-                tareasValidas.push(tarea);
+                // tareasValidas es un array nuevo local y es temporal
+                tareasValidas = [...tareasValidas, tarea];
+
             }
         }
 
@@ -95,14 +79,17 @@ export async function leerTareasDesdeArchivo(): Promise<interfazTarea[]> {
 
 export async function guardarTareasEnArchivo(tareas: interfazTarea[]): Promise<void> {
 
+
+    const RUTA_ARCHIVO = "./src/archivo.json";
     /*
         1) Convertimos las tareas a objetos
 
         JSON.stringify NO guarda métodos, ni prototipos, ni objetos congelados
         Por eso, antes de guardar, tenemos que convertir cada tarea en un objeto simple
     */
+   //map lo que hace es nos devuelve un nuevo array,sin metodos
     const tareasPlanas = tareas.map(t => ({
-        id: t.id,
+        id: t.id, //toma el valor de la tarea t.id y guardalo en id
         titulo: t.titulo,
         descripcion: t.descripcion,
         dificultad: t.dificultad,
@@ -113,15 +100,11 @@ export async function guardarTareasEnArchivo(tareas: interfazTarea[]): Promise<v
         eliminado: t.eliminado
     }));
 
-    /*
-        2) Convertimos estos objetos planos a JSON con identación asi esta mas lindo
-    */
+    
+// tarea planas es un array de objetos esto lo pasamos a texto ,2 es la identacion ,null es que no hay cambio,stringify convierte objetos a texto
+    
     const texto = JSON.stringify(tareasPlanas, null, 2);
 
-    /*
-        3) Guardamos archivo.json.
-           - Si existe, lo reemplaza.
-           - Si no existe, lo crea.
-    */
-    await fs.writeFile("archivo.json", texto, "utf8");
+//sobrescribe el archivo.json,await es una promesa que le dice que espere que escriba el texto
+    await fs.writeFile(RUTA_ARCHIVO, texto, "utf8");
 }

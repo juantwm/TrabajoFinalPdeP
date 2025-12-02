@@ -10,7 +10,7 @@ import { eliminarTarea } from "./EliminarTarea.js";
 
 const prompt = promptSync();
 
-export function menuPrincipal(listaTareas:interfazTarea[] = []) {
+export async function menuPrincipal(listaTareas:interfazTarea[] = []) {
 
     let ejecutando = true;
 
@@ -37,12 +37,12 @@ export function menuPrincipal(listaTareas:interfazTarea[] = []) {
         switch (opcion) {
             case 1:
                 
-                listaTareas = menuVerTareas(listaTareas);
+                listaTareas = await menuVerTareas(listaTareas);
             break;
 
             case 2:
 
-                const listaActualizada = menuBuscarTarea(listaTareas);
+                const listaActualizada = await menuBuscarTarea(listaTareas);
                 if (listaActualizada) 
                 {
                         listaTareas = listaActualizada;
@@ -50,11 +50,11 @@ export function menuPrincipal(listaTareas:interfazTarea[] = []) {
             break;
 
             case 3:
-                listaTareas = agregarTarea(listaTareas);
+                listaTareas = await agregarTarea(listaTareas);
             break;
 
             case 4:
-                listaTareas = eliminarTarea(listaTareas);
+                listaTareas = await eliminarTarea(listaTareas);
             break;
 
             case 5:
@@ -71,7 +71,7 @@ export function menuPrincipal(listaTareas:interfazTarea[] = []) {
 
 
 
-function menuVerTareas(listaTareas: interfazTarea[]): interfazTarea[] {
+async function menuVerTareas(listaTareas: interfazTarea[]): Promise<interfazTarea[]> {
 
         let op: number = 0;
         let filtroEspecifico: string = "";
@@ -92,22 +92,24 @@ function menuVerTareas(listaTareas: interfazTarea[]): interfazTarea[] {
                 op = 1;
                 console.log("\n--- 📋 Lista de Tareas ---");
     
-                return mostrarTareas(listaTareas, op, "");
+                return await mostrarTareas(listaTareas, op, "");
             
             case 2:
                 filtroEspecifico = '❗ Pendiente';
-                return mostrarTareas(listaTareas, op, filtroEspecifico);
+                return await mostrarTareas(listaTareas, op, filtroEspecifico);
             
             case 3:
                 filtroEspecifico = '🛠 En curso';
-                return mostrarTareas(listaTareas, op, filtroEspecifico);
+                return await mostrarTareas(listaTareas, op, filtroEspecifico);
             
             case 4:
                 filtroEspecifico = '✔ Terminada';
-                return mostrarTareas(listaTareas, op, filtroEspecifico);
+                return await mostrarTareas(listaTareas, op, filtroEspecifico);
 
             case 5:
-                mostrarTareasVencidas(listaTareas);
+                await mostrarTareasVencidas(listaTareas);
+
+                break;
 
             case 0:
                 return listaTareas; 
@@ -116,5 +118,6 @@ function menuVerTareas(listaTareas: interfazTarea[]): interfazTarea[] {
                 console.log("\n❌ Opción no válida, intenta de nuevo.");
                 return listaTareas; 
         }
+        return listaTareas;
 }
 

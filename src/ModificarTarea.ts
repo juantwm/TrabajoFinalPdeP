@@ -2,11 +2,12 @@ import type {interfazTarea} from "./Tarea.js";
 import { seleccionarDificultad, seleccionarEstado } from "./SelectEyD.js";
 import { agregarDescripcion, agregarVencimiento, agregarTitulo } from "./AgregarTarea.js";
 import promptSync from "prompt-sync";
+import { guardarTareasEnArchivo } from "./archivo.js";
 const prompt = promptSync();
 
 
 
-export function modificarTarea(listaTareas : interfazTarea[], tituloTarea: string, idTarea: String) : interfazTarea[]
+export async function modificarTarea(listaTareas : interfazTarea[], tituloTarea: string, idTarea: String) : Promise <interfazTarea[]>
 {
     
     let opcion : number;
@@ -32,7 +33,7 @@ export function modificarTarea(listaTareas : interfazTarea[], tituloTarea: strin
         opcion = parseInt(prompt("Elija una opción: "), 10);
 
         //tareaModificada es una varibale de tipo interfazTarea que se va a utilizar para guardar los cambios
-        
+
         let tareaModificada: interfazTarea | null = null;
         let fechaHoy = new Date();
 
@@ -99,7 +100,12 @@ export function modificarTarea(listaTareas : interfazTarea[], tituloTarea: strin
                     // se llama a 'reemplazarEnLista'. 
                     // Le pasamos la lista vieja y la tarea nueva (modificada).
                     // Esta funcion devuelve una lista NUEVA con el cambio agregado.
-                    return reemplazarEnLista(listaTareas, tareaModificada); 
+
+                    // Se crea una lista para guardar los cambios y pasarlos al archivo JSON
+                    const nuevaLista = reemplazarEnLista(listaTareas, tareaModificada);
+                    await guardarTareasEnArchivo(nuevaLista);
+
+                    return nuevaLista; 
 
                 }
 

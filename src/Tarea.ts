@@ -109,6 +109,7 @@ constructorTarea.prototype.setDescripcion = function(this: interfazTarea, nuevaD
     descripcion: nuevaDescripcion,
     ultimaModificacion: fecha,
     };
+    
     Object.setPrototypeOf(copia, constructorTarea.prototype);
     Object.freeze(copia);
 

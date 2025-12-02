@@ -2,13 +2,21 @@ import promptSync from "prompt-sync";
 const prompt = promptSync();
 import { menuPrincipal } from "./Menus.js";
 import type { interfazTarea } from "./Tarea.js";
+import { leerTareasDesdeArchivo } from "./archivo.js";
 
 
 
-/*Como el objeto necesita ser reasginado para mantener la pureza en el uso del objeto uso let y no
-const*/
-let listaTareas : interfazTarea [] = [];
 
-// Iniciar el menú principal
-menuPrincipal(listaTareas);
+
+// Necesitamos una función async autoejecutable para poder usar 'await' al inicio
+(async () => {
+    
+    // 1. Cargamos las tareas del archivo
+    let listaTareas: interfazTarea[] = await leerTareasDesdeArchivo();
+
+    // 2. Iniciamos el menú con las tareas cargadas
+    await menuPrincipal(listaTareas);
+
+})();
+
 

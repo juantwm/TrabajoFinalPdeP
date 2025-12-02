@@ -6,7 +6,7 @@ import promptSync from "prompt-sync";
 const prompt = promptSync();
 
 
-export function menuBuscarTarea(listaDeTareas: interfazTarea[]) {
+export async function menuBuscarTarea(listaDeTareas: interfazTarea[]){
 
     if(revisarContenga(listaDeTareas) === false)
     {
@@ -26,10 +26,10 @@ export function menuBuscarTarea(listaDeTareas: interfazTarea[]) {
 
         switch (opcion) {
             case 1:
-                return pedirTareaId(listaDeTareas);
+                return await pedirTareaId(listaDeTareas);
                 
             case 2:
-                return buscarClave(listaDeTareas);
+                return await buscarClave(listaDeTareas);
                 
             case 0:
                 return listaDeTareas;
@@ -48,7 +48,7 @@ export function menuBuscarTarea(listaDeTareas: interfazTarea[]) {
 
 
 //funcion completa donde me retorna una tarea que coincide con el id a buscar
-export function pedirTareaId(listaDeTareas: interfazTarea[]){
+export async function pedirTareaId(listaDeTareas: interfazTarea[]): Promise <interfazTarea[]>{
     
     listaDeTareas.forEach((t) => {
             if (t.eliminado === false) {
@@ -62,7 +62,9 @@ export function pedirTareaId(listaDeTareas: interfazTarea[]){
     const tarea = validarID(listaDeTareas, idBuscado);
     if(!tarea){
         console.log("¡ERROR! No se encontraron tareas.");
-        return;
+
+        //posible error al retornar una lista vacia y no la lista sin cambios
+        return [];
 
     }
 
@@ -98,7 +100,7 @@ function retornarLista(listaDeTareas: interfazTarea[], clave: string): interfazT
 }
 
 //2- funcion impura para pedir titulo
-export function buscarClave(listaDeTareas: interfazTarea[]): interfazTarea[] {
+export async function buscarClave(listaDeTareas: interfazTarea[]): Promise <interfazTarea[]> {
 
     let tituloBuscado = prompt("Introduce el titulo de una Tarea para buscarla:");
 

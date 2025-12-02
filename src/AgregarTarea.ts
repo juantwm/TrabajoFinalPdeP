@@ -4,9 +4,10 @@ import { constructorTarea } from "./Tarea.js";
 import { validarTitulo, validarDescripcion , validarVencimiento, validarSiNo } from "./Validadores.js";
 import promptSync from "prompt-sync";
 import { seleccionarDificultad, seleccionarEstado } from "./SelectEyD.js";
+import { guardarTareasEnArchivo } from "./archivo.js";
 const prompt = promptSync();
 
-export function agregarTarea(listaTareas : interfazTarea[]) : interfazTarea[] {
+export async function agregarTarea(listaTareas : interfazTarea[]) : Promise <interfazTarea[]> {
     const id = uuidv4();
     const titulo = agregarTitulo();
     const descripcion = agregarDescripcion();
@@ -17,7 +18,13 @@ export function agregarTarea(listaTareas : interfazTarea[]) : interfazTarea[] {
     const fechaCreacion = new Date();
     const tarea : interfazTarea = crearTarea
     (id, titulo, estado, descripcion, dificultad, vencimiento, fechaCreacion, ultimaModificacion);
-    return insertarTarea(listaTareas, tarea);
+
+
+    // Crea una lista con las tareas que creamos en tiempo de ejecucion, una a la vez. Esta lista se guarda en el archivo JSON y retorna esta lista-
+    const nuevaLista = insertarTarea(listaTareas, tarea);
+    await guardarTareasEnArchivo(nuevaLista);
+
+    return nuevaLista;
 }
 
 function insertarTarea (lista : interfazTarea[], tarea: interfazTarea) : interfazTarea[] {
@@ -26,9 +33,11 @@ lista que copia con "..." todos los objetos de la lista anterior y le agrega el 
     return [...lista, tarea];
 }
 
-/*Crear tarea debe si o si recibir por parametro los datos para retornar el objeto tarea, porque si
+/*
+Crear tarea debe si o si recibir por parametro los datos para retornar el objeto tarea, porque si
 llama desde alla las funciones impuras que retornan datos, entonces por conmposicion se vuelve una funcion
-impura*/
+impura
+*/
 
 function crearTarea
 (id : string,

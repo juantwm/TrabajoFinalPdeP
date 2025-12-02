@@ -81,14 +81,18 @@ export function validarID(listaDeTareas: interfazTarea[], idBuscado: string): in
     return tareaEncontrada;
 }
 
-// Revisamos que no este vacia
+// Revisamos que no este vacia (y que tenga al menos una tarea activa)
 export function revisarContenga(nuevaLista: interfazTarea[]): boolean {
 
-    if(nuevaLista.length>0)
-    {
+    // 1. Filtramos las tareas activas
+    const tareasActivas = nuevaLista.filter(t => t.eliminado === false);
+
+    // 2. Si la cantidad es mayor a 0, devolvemos TRUE
+    if (tareasActivas.length > 0) {
         return true;
     }
 
+    // 3. Si no hay activas, devolvemos FALSE
     return false;
 }
 
