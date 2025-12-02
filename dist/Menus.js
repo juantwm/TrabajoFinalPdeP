@@ -40,7 +40,7 @@ export async function menuPrincipal(listaTareas = []) {
                 listaTareas = await eliminarTarea(listaTareas);
                 break;
             case 5:
-                await mostrarEstadisticas(listaTareas);
+                mostrarEstadisticas(listaTareas);
                 break;
             case 6:
                 console.log("\n¡Hasta luego!");

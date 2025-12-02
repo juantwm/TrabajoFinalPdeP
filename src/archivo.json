@@ -1,0 +1,124 @@
+[
+  {
+    "id": "95cc1f87-28c5-4975-9c02-4ef2502609ee",
+    "titulo": "Aprender HTML",
+    "descripcion": "Es importante para el desarrollo web",
+    "dificultad": "⭐⭐",
+    "vencimiento": "05/12/2025",
+    "fechaCreacion": "2025-12-02T02:12:35.316Z",
+    "ultimaModificacion": "2025-12-02T02:12:35.316Z",
+    "estado": "❗ Pendiente",
+    "eliminado": false
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+    "titulo": "Estudiar para el final de Programación",
+    "descripcion": "Repasar POO, Funciones Puras y Recursividad.",
+    "dificultad": "⭐⭐⭐",
+    "vencimiento": "15/12/2025",
+    "fechaCreacion": "2025-11-01T10:00:00.000Z",
+    "ultimaModificacion": "2025-11-01T10:00:00.000Z",
+    "estado": "🛠 En curso",
+    "eliminado": false
+  },
+  {
+    "id": "b2c3d4e5-f678-9012-3456-7890abcdef12",
+    "titulo": "Comprar insumos para la impresora",
+    "descripcion": "Falta tinta negra y hojas A4.",
+    "dificultad": "⭐",
+    "vencimiento": "05/12/2025",
+    "fechaCreacion": "2025-11-20T14:30:00.000Z",
+    "ultimaModificacion": "2025-11-20T14:30:00.000Z",
+    "estado": "❗ Pendiente",
+    "eliminado": false
+  },
+  {
+    "id": "c3d4e5f6-7890-1234-5678-90abcdef1234",
+    "titulo": "Renovar el pasaporte",
+    "descripcion": "Sacar turno online y pagar el trámite.",
+    "dificultad": "⭐⭐",
+    "vencimiento": "No especificado",
+    "fechaCreacion": "2025-10-15T09:00:00.000Z",
+    "ultimaModificacion": "2025-10-16T11:20:00.000Z",
+    "estado": "❗ Pendiente",
+    "eliminado": false
+  },
+  {
+    "id": "d4e5f678-9012-3456-7890-abcdef123456",
+    "titulo": "Entregar el Trabajo Práctico de Diseño",
+    "descripcion": "Enviar el PDF y el código fuente por el campus virtual.",
+    "dificultad": "⭐⭐⭐",
+    "vencimiento": "10/11/2023",
+    "fechaCreacion": "2023-11-01T18:00:00.000Z",
+    "ultimaModificacion": "2023-11-10T23:59:00.000Z",
+    "estado": "✔ Terminada",
+    "eliminado": false
+  },
+  {
+    "id": "e5f67890-1234-5678-90ab-cdef12345678",
+    "titulo": "Ir al gimnasio",
+    "descripcion": "Rutina de piernas.",
+    "dificultad": "⭐⭐",
+    "vencimiento": "01/12/2025",
+    "fechaCreacion": "2025-11-30T07:00:00.000Z",
+    "ultimaModificacion": "2025-11-30T07:00:00.000Z",
+    "estado": "❌ Cancelada",
+    "eliminado": false
+  },
+  {
+    "id": "f6789012-3456-7890-abcd-ef1234567890",
+    "titulo": "Llamar al médico",
+    "descripcion": "Pedir receta para la alergia.",
+    "dificultad": "⭐",
+    "vencimiento": "20/12/2025",
+    "fechaCreacion": "2025-12-01T10:00:00.000Z",
+    "ultimaModificacion": "2025-12-01T10:00:00.000Z",
+    "estado": "❗ Pendiente",
+    "eliminado": false
+  },
+  {
+    "id": "78901234-5678-90ab-cdef-1234567890ab",
+    "titulo": "Limpiar el archivo de Tareas viejas",
+    "descripcion": "Esta tarea debería estar borrada lógicamente.",
+    "dificultad": "⭐",
+    "vencimiento": "No especificado",
+    "fechaCreacion": "2024-01-01T12:00:00.000Z",
+    "ultimaModificacion": "2024-02-01T12:00:00.000Z",
+    "estado": "✔ Terminada",
+    "eliminado": true
+  },
+  {
+    "id": "89012345-6789-0abc-def1-234567890abc",
+    "titulo": "Leer documentación de TypeScript",
+    "descripcion": "Específicamente sobre Generics y Utility Types.",
+    "dificultad": "⭐⭐",
+    "vencimiento": "No especificado",
+    "fechaCreacion": "2025-11-25T16:45:00.000Z",
+    "ultimaModificacion": "2025-11-25T16:45:00.000Z",
+    "estado": "🛠 En curso",
+    "eliminado": false
+  },
+  {
+    "id": "90123456-7890-abcd-ef12-34567890abcd",
+    "titulo": "Pagar la luz",
+    "descripcion": "Vence mañana.",
+    "dificultad": "⭐",
+    "vencimiento": "02/12/2025",
+    "fechaCreacion": "2025-11-28T09:00:00.000Z",
+    "ultimaModificacion": "2025-11-28T09:00:00.000Z",
+    "estado": "❗ Pendiente",
+    "eliminado": false
+  },
+  {
+    "id": "01234567-890a-bcde-f123-4567890abcde",
+    "titulo": "Hacer backup de la PC",
+    "descripcion": "Guardar fotos y documentos en el disco externo.",
+    "dificultad": "⭐⭐⭐",
+    "vencimiento": "30/12/2025",
+    "fechaCreacion": "2025-10-10T20:00:00.000Z",
+    "ultimaModificacion": "2025-10-10T20:00:00.000Z",
+    "estado": "❗ Pendiente",
+    "eliminado": false
+  }
+]
+

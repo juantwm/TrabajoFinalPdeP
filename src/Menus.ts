@@ -60,7 +60,7 @@ export async function menuPrincipal(listaTareas:interfazTarea[] = []) {
             break;
 
             case 5:
-                await mostrarEstadisticas(listaTareas);
+                mostrarEstadisticas(listaTareas);
             break;
 
             case 6:
