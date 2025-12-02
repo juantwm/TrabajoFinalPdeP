@@ -4,6 +4,7 @@ import { agregarTarea } from "./AgregarTarea.js";
 import { menuBuscarTarea} from "./BuscarTarea.js";
 import { mostrarTareas, mostrarTareasVencidas} from "./Mostrar.js";
 import { eliminarTarea } from "./EliminarTarea.js";
+import { mostrarEstadisticas } from "./Estadisticas.js";
 
 
 
@@ -29,7 +30,8 @@ export async function menuPrincipal(listaTareas:interfazTarea[] = []) {
         console.log("[2] Buscar Tareas");
         console.log("[3] Agregar Tareas");
         console.log("[4] Eliminar una tarea");
-        console.log("[5]. Salir");
+        console.log("[5] Estadisticas");
+        console.log("[6]. Salir");
 
         let opcion = parseInt(prompt("Elige una opción: "), 10);
 
@@ -58,6 +60,10 @@ export async function menuPrincipal(listaTareas:interfazTarea[] = []) {
             break;
 
             case 5:
+                await mostrarEstadisticas(listaTareas);
+            break;
+
+            case 6:
                 console.log("\n¡Hasta luego!");
                 ejecutando = false;
             break;
